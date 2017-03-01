@@ -34,22 +34,31 @@ function Board(){
     this.update =function(){
         this.clear();
         Snake.draw();
+        
     };
 };
 
 
 function Snake(){
     this.position_head = [40,20];
-    this.body=[ [39,20],[38,20] ]
+    this.body=[ [40,20],[39,20],[38,20],[38,21] ]
     this.length = this.body.length + 1;
     this.derection = begin;
     
     this.draw = function(){  
-        $(point_selector(this.position_head)).css("background","#fd0404")
         for( var i in this.body){
            $(point_selector(this.body[i])).css("background","#2e1fe3") 
         };
+        $(point_selector(this.body[0])).css("background","#fd0404")
     };
+    
+    this.move=function(){  
+        for (var i = this.body.length-1; i>0; i--){
+            this.body[i] = this.body[i-1];
+        }
+        this.body[0]=[this.body[0][0]+1, this.body[0][1]]; 
+        alert(this.body[0]);
+    }
 };
 
 
@@ -60,5 +69,5 @@ var Snake = new Snake();
 $(document).ready(function(){
     Board.draw();
     Board.update();
-    
+
 });
