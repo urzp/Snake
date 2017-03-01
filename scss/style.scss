@@ -18,10 +18,11 @@ header{
     border: 4px solid #ed0a0a;
 }
 
-.board_cell{
+.cell{
     float: left;
     width: 8px;
     height: 8px;
     background: #aaa;
-    border: 1px solid #000;
+    border: 1px solid #000;  
 }
+
