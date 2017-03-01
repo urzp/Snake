@@ -1,0 +1,19 @@
+body{
+    background: #000;
+    color: #fff;
+}
+
+header{
+    height: 100%;
+    
+    h1{
+        text-align: center;
+    }
+}
+
+.game_space {
+    height: 400px;
+    width: 800px;
+    margin: 0 auto;
+    border: 4px solid #ed0a0a;
+}
