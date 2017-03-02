@@ -14,8 +14,11 @@ var Board = new Board();
 var Snake = new Snake();
 var Food = new Food();
 
-function point_selector(position){
-    
+var sound = new Audio();
+
+var timerId;
+
+function point_selector(position){  
     var point = position[0] + "," + position[1];
     var selector = '.cell[position="'+point+'"]';
     return selector;
@@ -45,12 +48,10 @@ function Board(){
         this.clear();
         Food.draw();
         Snake.draw();
-        
     };
 };
 
 function Food(){
-    
     var x=Math.floor(Math.random() * Board.width);
     var y=Math.floor(Math.random() * Board.hight);
     this.position=[x,y]
@@ -68,10 +69,11 @@ function Food(){
 
 function Snake(){
     
-    this.body=[ [40,20],[39,20] ]
-    this.length = this.body.length + 1;
-    
-    this.derection = STOP;
+    this.init =function(){
+        this.body=[ [40,20],[39,20] ]
+        this.length = this.body.length + 1;
+        this.derection = STOP;
+    };
     
     this.draw = function(){  
         for( var i in this.body){
@@ -112,12 +114,14 @@ function Snake(){
         if (this.body[0][0] < 0 || this.body[0][0] >= Board.width ){
             alert("BUM!!!");
             this.derection = STOP;
+            clearInterval(timerId);
             return true;
         }
 
         if (this.body[0][1] < 0 || this.body[0][1] >= Board.hight ){
             alert("BUM!!!");
             this.derection = STOP;
+            clearInterval(timerId);
             return true;
         }        
         
@@ -140,23 +144,32 @@ function Snake(){
         //alert("GUM!!!");
         if (Food.position[0] == this.body[0][0] && Food.position[1] == this.body[0][1] ){
             this.body[this.body.length]=(Food.position);
-            
-            Food.new();
+            Food.new();         
         }
     }
 };
 
 function init_game(){
     Board.draw();
+}
+
+function start_game(){
+    Snake.init();
     Board.update();
-    var timerId = setInterval(game_update, 100);
-    //setTimeout(function() { clearInterval(timerId); }, 2000);
+    timerId = setInterval(game_update, 100);
 }
 
 function game_update(){
     Board.update();
     Snake.move(); 
 };
+
+function playSound(){
+    sound.pause();
+    sound.currentTime = 0;
+    sound.src = "Ot_vinta.mp3";
+    sound.play();
+}
 
 $( document ).keydown(function(e) {
   //alert( "Handler for .keydown() called. "+ e.which );
@@ -179,8 +192,12 @@ $( document ).keydown(function(e) {
   }        
 });
 
-$(document).ready(function(){
+$(document).ready(function(){   
     init_game();
     
-
+    $(".start").on('click', function(){ 
+        start_game();
+        playSound();
+     } );
+    
 });

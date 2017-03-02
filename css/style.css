@@ -1,6 +1,7 @@
 body {
   background: #000;
-  color: #fff; }
+  color: #fff;
+  font-family: sans-serif; }
 
 header {
   height: 100%; }
@@ -19,5 +20,29 @@ header {
   height: 8px;
   background: #aaa;
   border: 1px solid #888; }
+
+.console {
+  height: 100%; }
+  .console .start {
+    width: 80px;
+    padding: 30px;
+    margin: 0 auto;
+    text-align: center;
+    border-radius: 20px;
+    background: #5d0621;
+    cursor: pointer; }
+  .console .keys {
+    height: 80px;
+    width: 880px;
+    margin: 0 auto;
+    color: #555; }
+    .console .keys #key {
+      text-align: center;
+      vertical-align: middle; }
+    .console .keys div {
+      width: 140px;
+      float: left;
+      height: 50px;
+      margin: 10px; }
 
 /*# sourceMappingURL=style.css.map */

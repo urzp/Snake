@@ -1,6 +1,8 @@
+//sass --watch scss/style.scss:css/style.css
 body{
     background: #000;
     color: #fff;
+    font-family:sans-serif;
 }
 
 header{
@@ -25,4 +27,43 @@ header{
     background: #aaa;
     border: 1px solid #888;  
 }
+
+.console{
+    height: 100%;
+    
+    .start{
+        width: 80px;
+        padding: 30px;
+        margin: 0 auto;
+        text-align: center;
+        border-radius: 20px;
+        background: #5d0621;
+        cursor: pointer;
+    }   
+
+    
+
+    
+    .keys{
+        
+        height: 80px;
+        width: 880px;
+        margin: 0 auto;
+        color: #555;
+         
+        #key{
+             text-align: center;
+            vertical-align: middle;
+            }
+            
+;        div{
+            width: 140px;
+            float: left;
+            height: 50px;
+            margin: 10px;
+
+        }
+    }
+}
+
 
