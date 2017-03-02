@@ -57,7 +57,7 @@ function Snake(){
             this.body[i] = this.body[i-1];
         }
         this.body[0]=[this.body[0][0]+1, this.body[0][1]]; 
-        alert(this.body[0]);
+        //alert(this.body[0]);
     }
 };
 
@@ -66,8 +66,24 @@ var Board = new Board();
 var Snake = new Snake();
 
 
-$(document).ready(function(){
+function init_game(){
     Board.draw();
     Board.update();
+    var timerId = setInterval(game_update, 300);
+    setTimeout(function() { clearInterval(timerId); }, 5000);
+}
+
+
+function game_update(){
+    Board.update();
+    Snake.move(); 
+};
+
+
+
+
+$(document).ready(function(){
+    init_game();
+    
 
 });
