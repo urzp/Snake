@@ -12,6 +12,7 @@ const KEY_SPACE = 32;
 
 var Board = new Board();
 var Snake = new Snake();
+var Food = new Food();
 
 function point_selector(position){
     
@@ -42,14 +43,32 @@ function Board(){
     
     this.update =function(){
         this.clear();
+        Food.draw();
         Snake.draw();
         
     };
 };
 
+function Food(){
+    
+    var x=Math.floor(Math.random() * Board.width);
+    var y=Math.floor(Math.random() * Board.hight);
+    this.position=[x,y]
+    
+    this.new =function(){
+        x=Math.floor(Math.random() * Board.width);
+        y=Math.floor(Math.random() * Board.hight);
+        this.position=[x,y]
+    };
+    
+    this.draw=function(){
+      $(point_selector(this.position)).css("background","#2f8112")  
+    };
+}
+
 function Snake(){
     
-    this.body=[ [40,20],[39,20],[38,20],[38,21],[37,21],[36,21],[35,21],[34,21],[33,21],[32,21],[31,21] ]
+    this.body=[ [40,20],[39,20] ]
     this.length = this.body.length + 1;
     
     this.derection = STOP;
@@ -63,8 +82,10 @@ function Snake(){
     
     this.move=function(){  
 
-        if (this.derection != STOP && !this.hitting_check()) {
+        if (this.derection != STOP ) {
             this.eat_myself();
+            this.hitting_check();
+            this.eat();
             for (var i = this.body.length-1; i>0; i--){
                 this.body[i] = this.body[i-1];
             }
@@ -112,6 +133,15 @@ function Snake(){
                 this.derection = STOP;
                 return true;
             }
+        }
+    }
+    
+    this.eat = function(){
+        //alert("GUM!!!");
+        if (Food.position[0] == this.body[0][0] && Food.position[1] == this.body[0][1] ){
+            this.body[this.body.length]=(Food.position);
+            
+            Food.new();
         }
     }
 };
