@@ -1,8 +1,8 @@
-const begin = 0;
-const left = 1;
-const right = 2;
-const up = 3;
-const down = 4;
+const BEGIN = 0;
+const LEFT = 1;
+const RIGHT = 2;
+const UP = 3;
+const DOWN = 4;
 
 function point_selector(position){
     
@@ -43,7 +43,8 @@ function Snake(){
     this.position_head = [40,20];
     this.body=[ [40,20],[39,20],[38,20],[38,21] ]
     this.length = this.body.length + 1;
-    this.derection = begin;
+    
+    this.derection = LEFT;
     
     this.draw = function(){  
         for( var i in this.body){
@@ -53,11 +54,28 @@ function Snake(){
     };
     
     this.move=function(){  
-        for (var i = this.body.length-1; i>0; i--){
-            this.body[i] = this.body[i-1];
-        }
-        this.body[0]=[this.body[0][0]+1, this.body[0][1]]; 
-        //alert(this.body[0]);
+        if (this.derection != BEGIN) {
+            for (var i = this.body.length-1; i>0; i--){
+                this.body[i] = this.body[i-1];
+            }
+            switch (this.derection){
+                case LEFT:
+                    this.body[0]=[this.body[0][0]-1, this.body[0][1]]; 
+                    break
+                case RIGHT:
+                    this.body[0]=[this.body[0][0]+1, this.body[0][1]]; 
+                    break
+                case UP:
+                    this.body[0]=[this.body[0][0], this.body[0][1]-1]; 
+                    break
+                case DOWN:
+                    this.body[0]=[this.body[0][0], this.body[0][1]+1]; 
+                    break    
+
+            };
+        };
+        
+        
     }
 };
 
