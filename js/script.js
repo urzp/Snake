@@ -47,9 +47,8 @@ function Board(){
     };
 };
 
-
 function Snake(){
-    this.position_head = [40,20];
+    
     this.body=[ [40,20],[39,20],[38,20],[38,21] ]
     this.length = this.body.length + 1;
     
@@ -63,7 +62,9 @@ function Snake(){
     };
     
     this.move=function(){  
-        if (this.derection != STOP) {
+
+        if (this.derection != STOP && !this.hitting_check()) {
+            
             for (var i = this.body.length-1; i>0; i--){
                 this.body[i] = this.body[i-1];
             }
@@ -81,16 +82,27 @@ function Snake(){
                     this.body[0]=[this.body[0][0], this.body[0][1]+1]; 
                     break    
             };
+           
         };
-        
         
     }
     
-    
+    this.hitting_check = function(){
+        if (this.body[0][0] < 0 || this.body[0][0] >= Board.width ){
+            alert("BUM!!!");
+            this.derection = STOP;
+            return true;
+        }
+
+        if (this.body[0][1] < 0 || this.body[0][1] >= Board.hight ){
+            alert("BUM!!!");
+            this.derection = STOP;
+            return true;
+        }        
+        
+        return false;
+    };
 };
-
-
-
 
 function init_game(){
     Board.draw();
@@ -99,12 +111,10 @@ function init_game(){
     //setTimeout(function() { clearInterval(timerId); }, 2000);
 }
 
-
 function game_update(){
     Board.update();
     Snake.move(); 
 };
-
 
 $( document ).keydown(function(e) {
   //alert( "Handler for .keydown() called. "+ e.which );
@@ -126,7 +136,6 @@ $( document ).keydown(function(e) {
           break   
   }        
 });
-
 
 $(document).ready(function(){
     init_game();
